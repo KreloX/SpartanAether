@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "krelox.spartanaether.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "spartanaether.refmap.json",
+  "mixins": [
+    "DoubleDropsModifierMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

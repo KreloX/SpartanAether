@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanweaponry:type_disabled",
+      "disabled": [
+        "battle_hammer"
+      ]
+    }
+  ],
+  "group": "spartanweaponry:battle_hammer",
+  "key": {
+    "#": {
+      "tag": "aether:holystone_repairing"
+    },
+    "|": {
+      "item": "spartanaether:skyroot_handle"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    " | "
+  ],
+  "result": {
+    "item": "spartanaether:holystone_battle_hammer"
+  }
+}

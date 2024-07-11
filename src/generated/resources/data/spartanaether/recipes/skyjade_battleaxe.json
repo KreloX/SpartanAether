@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanweaponry:type_disabled",
+      "disabled": [
+        "battleaxe"
+      ]
+    }
+  ],
+  "group": "spartanweaponry:battleaxe",
+  "key": {
+    "#": {
+      "tag": "deep_aether:skyjade_repairing"
+    },
+    "/": {
+      "tag": "aether:skyroot_stick"
+    },
+    "|": {
+      "item": "spartanaether:skyroot_handle"
+    }
+  },
+  "pattern": [
+    "###",
+    "#/#",
+    " | "
+  ],
+  "result": {
+    "item": "spartanaether:skyjade_battleaxe"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "spartanaether:skyroot_pole",
+  "key": {
+    "#": {
+      "tag": "forge:string"
+    },
+    "|": {
+      "tag": "aether:skyroot_stick"
+    }
+  },
+  "pattern": [
+    "| ",
+    "|#",
+    "| "
+  ],
+  "result": {
+    "item": "spartanaether:skyroot_pole"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanweaponry:type_disabled",
+      "disabled": [
+        "quarterstaff"
+      ]
+    }
+  ],
+  "group": "spartanweaponry:quarterstaff",
+  "key": {
+    "#": {
+      "tag": "deep_aether:skyjade_repairing"
+    },
+    "/": {
+      "item": "spartanaether:skyroot_pole"
+    }
+  },
+  "pattern": [
+    "  #",
+    " / ",
+    "#  "
+  ],
+  "result": {
+    "item": "spartanaether:skyjade_quarterstaff"
+  }
+}

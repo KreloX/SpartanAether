@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanweaponry:type_disabled",
+      "disabled": [
+        "lance"
+      ]
+    }
+  ],
+  "group": "spartanweaponry:lance",
+  "key": {
+    "#": {
+      "tag": "aether:gravitite_repairing"
+    },
+    "/": {
+      "item": "spartanaether:skyroot_pole"
+    },
+    "|": {
+      "item": "spartanaether:skyroot_handle"
+    }
+  },
+  "pattern": [
+    "  #",
+    "#/ ",
+    "|# "
+  ],
+  "result": {
+    "item": "spartanaether:gravitite_lance"
+  }
+}

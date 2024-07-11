@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "spartanaether:skyroot_handle",
+  "ingredients": [
+    {
+      "tag": "aether:skyroot_stick"
+    },
+    {
+      "tag": "aether:skyroot_stick"
+    },
+    {
+      "tag": "aether:skyroot_stick"
+    },
+    {
+      "tag": "aether:skyroot_stick"
+    },
+    {
+      "tag": "forge:leather"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "spartanaether:skyroot_handle"
+  }
+}

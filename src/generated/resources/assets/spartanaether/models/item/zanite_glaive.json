@@ -1,0 +1,22 @@
+{
+  "parent": "spartanweaponry:item/base/glaive",
+  "loader": "spartanweaponry:oil_coated_item",
+  "overrides": [
+    {
+      "model": "spartanaether:item/zanite_glaive_blocking",
+      "predicate": {
+        "spartanweaponry:blocking": 1.0
+      }
+    },
+    {
+      "model": "spartanaether:item/zanite_glaive_throwing",
+      "predicate": {
+        "spartanweaponry:throwing": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "coating": "spartanweaponry:item/coating/glaive",
+    "layer0": "spartanaether:item/zanite_glaive"
+  }
+}

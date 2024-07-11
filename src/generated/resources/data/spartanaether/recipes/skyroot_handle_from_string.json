@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "spartanaether:skyroot_handle",
+  "ingredients": [
+    {
+      "tag": "aether:skyroot_stick"
+    },
+    {
+      "tag": "forge:string"
+    }
+  ],
+  "result": {
+    "item": "spartanaether:skyroot_handle"
+  }
+}

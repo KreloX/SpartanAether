@@ -1,0 +1,22 @@
+{
+  "parent": "spartanweaponry:item/base/quarterstaff",
+  "loader": "spartanweaponry:oil_coated_item",
+  "overrides": [
+    {
+      "model": "spartanaether:item/zanite_quarterstaff_blocking",
+      "predicate": {
+        "spartanweaponry:blocking": 1.0
+      }
+    },
+    {
+      "model": "spartanaether:item/zanite_quarterstaff_throwing",
+      "predicate": {
+        "spartanweaponry:throwing": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "coating": "spartanweaponry:item/coating/quarterstaff",
+    "layer0": "spartanaether:item/zanite_quarterstaff"
+  }
+}

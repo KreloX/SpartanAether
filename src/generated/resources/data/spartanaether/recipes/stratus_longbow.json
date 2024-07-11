@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanweaponry:type_disabled",
+      "disabled": [
+        "longbow"
+      ]
+    }
+  ],
+  "group": "spartanweaponry:longbow",
+  "key": {
+    "#": {
+      "tag": "deep_aether:stratus_repairing"
+    },
+    "/": {
+      "tag": "aether:skyroot_stick"
+    },
+    "|": {
+      "item": "spartanaether:skyroot_handle"
+    },
+    "~": {
+      "tag": "forge:string"
+    }
+  },
+  "pattern": [
+    "|/#",
+    "/ ~",
+    "#~~"
+  ],
+  "result": {
+    "item": "spartanaether:stratus_longbow"
+  }
+}
