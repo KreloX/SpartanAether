@@ -39,9 +39,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.util.TriConsumer;
-import teamrazor.deepaether.datagen.tags.DATags;
-import teamrazor.deepaether.init.DATiers;
-import teamrazor.deepaether.tags.SkyjadeWeapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +108,7 @@ public class SpartanAether extends SpartanAddon {
             }
             double boostedDamage = baseDamage * ((double) stack.getDamageValue() / stack.getMaxDamage() + 0.5);
             boostedDamage -= baseDamage;
-            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(SkyjadeWeapon.DAMAGE_MODIFIER_UUID,
+            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ZaniteWeapon.DAMAGE_MODIFIER_UUID,
                     "Damage modifier", Math.round(-boostedDamage), AttributeModifier.Operation.ADDITION));
         }
 
@@ -141,9 +138,9 @@ public class SpartanAether extends SpartanAddon {
     public static final SpartanMaterial SKYROOT = material(AetherItemTiers.SKYROOT, AetherTags.Items.SKYROOT_REPAIRING, DOUBLE_DROPS);
     public static final SpartanMaterial HOLYSTONE = material(AetherItemTiers.HOLYSTONE, AetherTags.Items.HOLYSTONE_REPAIRING, PROSPECT);
     public static final SpartanMaterial ZANITE = material(AetherItemTiers.ZANITE, AetherTags.Items.ZANITE_REPAIRING, ADAPTIVE);
-    public static final SpartanMaterial SKYJADE = ModList.get().isLoaded("deep_aether") ? material(DATiers.SKYJADE, DATags.Items.SKYJADE_REPAIRING, ETHEREAL) : null;
+    public static final SpartanMaterial SKYJADE = ModList.get().isLoaded("deep_aether") ? DeepAetherModule.skyjade() : null;
     public static final SpartanMaterial GRAVITITE = material(AetherItemTiers.GRAVITITE, AetherTags.Items.GRAVITITE_REPAIRING, UPDRAFT);
-    public static final SpartanMaterial STRATUS = ModList.get().isLoaded("deep_aether") ? material(DATiers.STRATUS, DATags.Items.STRATUS_REPAIRING, UPDRAFT) : null;
+    public static final SpartanMaterial STRATUS = ModList.get().isLoaded("deep_aether") ? DeepAetherModule.stratus() : null;
 
     @SuppressWarnings("unused")
     public static final RegistryObject<CreativeModeTab> SPARTAN_AETHER_TAB = registerTab(TABS, MODID,
@@ -159,9 +156,9 @@ public class SpartanAether extends SpartanAddon {
         TABS.register(bus);
     }
 
-    private static SpartanMaterial material(Enum<?> tier, TagKey<Item> repairTag, RegistryObject<WeaponTrait> trait) {
+    static SpartanMaterial material(Enum<?> tier, TagKey<Item> repairTag, RegistryObject<WeaponTrait> trait) {
         SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, trait)
-                .setStick(AetherTags.Items.SKYROOT_STICKS).setHandle(SKYROOT_HANDLE).setPole(SKYROOT_POLE);
+                .setPlanks(AetherTags.Items.SKYROOT_STICK_CRAFTING).setStick(AetherTags.Items.SKYROOT_STICKS).setHandle(SKYROOT_HANDLE).setPole(SKYROOT_POLE);
         MATERIALS.add(material);
         return material;
     }
