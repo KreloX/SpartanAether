@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aetherite_heavy_crossbow": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:aetherite_heavy_crossbow"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:aetherite_heavy_crossbow_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aetherite_heavy_crossbow",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:aetherite_heavy_crossbow_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

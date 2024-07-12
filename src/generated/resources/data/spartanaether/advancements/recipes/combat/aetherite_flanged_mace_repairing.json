@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aetherite_flanged_mace": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:aetherite_flanged_mace"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:aetherite_flanged_mace_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aetherite_flanged_mace",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:aetherite_flanged_mace_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

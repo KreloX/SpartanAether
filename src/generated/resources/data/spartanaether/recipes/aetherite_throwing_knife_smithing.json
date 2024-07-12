@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aethergearexpansion:aetherite_ingot"
+  },
+  "base": {
+    "item": "spartanaether:gravitite_throwing_knife"
+  },
+  "result": {
+    "item": "spartanaether:aetherite_throwing_knife"
+  },
+  "template": {
+    "item": "aethergearexpansion:aetherite_upgrade_smithing_template"
+  }
+}

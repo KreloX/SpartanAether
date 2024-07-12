@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aetherite_rapier": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:aetherite_rapier"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:aetherite_rapier_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aetherite_rapier",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:aetherite_rapier_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

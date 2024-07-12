@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:aetherite_throwing_knife"
+  },
+  "repairTime": 1500
+}

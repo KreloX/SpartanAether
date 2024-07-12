@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aethergearexpansion:aetherite_ingot"
+  },
+  "base": {
+    "item": "spartanaether:gravitite_heavy_crossbow"
+  },
+  "result": {
+    "item": "spartanaether:aetherite_heavy_crossbow"
+  },
+  "template": {
+    "item": "aethergearexpansion:aetherite_upgrade_smithing_template"
+  }
+}

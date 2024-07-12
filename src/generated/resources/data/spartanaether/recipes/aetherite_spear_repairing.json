@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:aetherite_spear"
+  },
+  "repairTime": 1500
+}

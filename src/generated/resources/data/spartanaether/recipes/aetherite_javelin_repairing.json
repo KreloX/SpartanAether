@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:aetherite_javelin"
+  },
+  "repairTime": 1500
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aethergearexpansion:aetherite_ingot"
+  },
+  "base": {
+    "item": "spartanaether:gravitite_javelin"
+  },
+  "result": {
+    "item": "spartanaether:aetherite_javelin"
+  },
+  "template": {
+    "item": "aethergearexpansion:aetherite_upgrade_smithing_template"
+  }
+}

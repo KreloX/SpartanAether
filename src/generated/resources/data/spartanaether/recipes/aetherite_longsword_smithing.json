@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aethergearexpansion:aetherite_ingot"
+  },
+  "base": {
+    "item": "spartanaether:gravitite_longsword"
+  },
+  "result": {
+    "item": "spartanaether:aetherite_longsword"
+  },
+  "template": {
+    "item": "aethergearexpansion:aetherite_upgrade_smithing_template"
+  }
+}

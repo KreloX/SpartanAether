@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aethergearexpansion:aetherite_ingot"
+  },
+  "base": {
+    "item": "spartanaether:gravitite_glaive"
+  },
+  "result": {
+    "item": "spartanaether:aetherite_glaive"
+  },
+  "template": {
+    "item": "aethergearexpansion:aetherite_upgrade_smithing_template"
+  }
+}

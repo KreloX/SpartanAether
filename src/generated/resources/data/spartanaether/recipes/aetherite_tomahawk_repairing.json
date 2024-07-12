@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:aetherite_tomahawk"
+  },
+  "repairTime": 1500
+}

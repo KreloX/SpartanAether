@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:aetherite_flanged_mace"
+  },
+  "repairTime": 1500
+}

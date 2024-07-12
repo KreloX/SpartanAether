@@ -11,8 +11,12 @@ import com.google.common.collect.ImmutableMultimap;
 import com.oblivioussp.spartanweaponry.api.WeaponMaterial;
 import com.oblivioussp.spartanweaponry.api.data.model.ModelGenerator;
 import com.oblivioussp.spartanweaponry.api.trait.WeaponTrait;
+import com.rolfmao.aethergearexpansion.handlers.AetheriteHandler;
+import com.rolfmao.aethergearexpansion.items.AGEItems;
 import krelox.spartantoolkit.*;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
@@ -131,6 +135,16 @@ public class SpartanAether extends SpartanAddon {
             }
         }
     }.setMelee());
+    public static final RegistryObject<WeaponTrait> REACTIVE = registerTrait(TRAITS, new BetterWeaponTrait("reactive", MODID, WeaponTrait.TraitQuality.POSITIVE) {
+        @Override
+        public float modifyDamageDealt(WeaponMaterial material, float baseDamage, DamageSource source, LivingEntity attacker, LivingEntity victim) {
+            if (!EquipmentUtil.isFullStrength(attacker)) return baseDamage;
+
+            float boostedDamage = baseDamage + AetheriteHandler.getLastDamageDone(attacker) / 10.0F;
+            AetheriteHandler.addDamageDoneToList(attacker, attacker.tickCount, Math.min(boostedDamage, victim.getHealth()));
+            return boostedDamage;
+        }
+    }.setUniversal(false));
 
     // Materials
     public static final ArrayList<SpartanMaterial> MATERIALS = new ArrayList<>();
@@ -141,6 +155,7 @@ public class SpartanAether extends SpartanAddon {
     public static final SpartanMaterial SKYJADE = ModList.get().isLoaded("deep_aether") ? DeepAetherModule.skyjade() : null;
     public static final SpartanMaterial GRAVITITE = material(AetherItemTiers.GRAVITITE, AetherTags.Items.GRAVITITE_REPAIRING, UPDRAFT);
     public static final SpartanMaterial STRATUS = ModList.get().isLoaded("deep_aether") ? DeepAetherModule.stratus() : null;
+    public static final SpartanMaterial AETHERITE = ModList.get().isLoaded("aethergearexpansion") ? AetherGearExpModule.aetherite() : null;
 
     @SuppressWarnings("unused")
     public static final RegistryObject<CreativeModeTab> SPARTAN_AETHER_TAB = registerTab(TABS, MODID,
@@ -156,8 +171,9 @@ public class SpartanAether extends SpartanAddon {
         TABS.register(bus);
     }
 
-    static SpartanMaterial material(Enum<?> tier, TagKey<Item> repairTag, RegistryObject<WeaponTrait> trait) {
-        SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, trait)
+    @SafeVarargs
+    static SpartanMaterial material(Enum<?> tier, TagKey<Item> repairTag, RegistryObject<WeaponTrait>... traits) {
+        SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, traits)
                 .setPlanks(AetherTags.Items.SKYROOT_STICK_CRAFTING).setStick(AetherTags.Items.SKYROOT_STICKS).setHandle(SKYROOT_HANDLE).setPole(SKYROOT_POLE);
         MATERIALS.add(material);
         return material;
@@ -177,6 +193,13 @@ public class SpartanAether extends SpartanAddon {
 
         provider.basicItem(SKYROOT_HANDLE.get());
         provider.basicItem(SKYROOT_POLE.get());
+    }
+
+    @Override
+    protected void addItemTags(ItemTagsProvider provider, Function<TagKey<Item>, IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item>> tag) {
+        super.addItemTags(provider, tag);
+
+        tag.apply(AetherGearExpModule.INGOTS_AETHERITE).add(AGEItems.AETHERITE_INGOT.get());
     }
 
     @Override
@@ -212,7 +235,8 @@ public class SpartanAether extends SpartanAddon {
                 ZANITE, 750,
                 SKYJADE, 750,
                 GRAVITITE, 1500,
-                STRATUS, 1500
+                STRATUS, 1500,
+                AETHERITE, 1500
         );
 
         WEAPONS.forEach((key, item) -> {
@@ -222,9 +246,15 @@ public class SpartanAether extends SpartanAddon {
 
             if (material.equals(STRATUS)) {
                 SmithingTransformRecipeBuilder
-                        .smithing(Ingredient.of(DAItems.STRATUS_SMITHING_TEMPLATE.get()), Ingredient.of(weapon),
+                        .smithing(Ingredient.of(DAItems.STRATUS_SMITHING_TEMPLATE.get()), Ingredient.of(WEAPONS.get(GRAVITITE, type).get()),
                                 Ingredient.of(DAItems.STRATUS_INGOT.get()), RecipeCategory.COMBAT, weapon)
                         .unlocks("has_stratus_ingot", has(DAItems.STRATUS_INGOT.get()))
+                        .save(consumer, item.getId() + "_smithing");
+            } else if (material.equals(AETHERITE)) {
+                SmithingTransformRecipeBuilder
+                        .smithing(Ingredient.of(AGEItems.AETHERITE_UPGRADE_SMITHING_TEMPLATE.get()), Ingredient.of(WEAPONS.get(GRAVITITE, type).get()),
+                                Ingredient.of(AGEItems.AETHERITE_INGOT.get()), RecipeCategory.COMBAT, weapon)
+                        .unlocks("has_aetherite_ingot", has(AGEItems.AETHERITE_INGOT.get()))
                         .save(consumer, item.getId() + "_smithing");
             } else {
                 type.recipe.accept(WEAPONS, consumer, material);
@@ -241,11 +271,12 @@ public class SpartanAether extends SpartanAddon {
     @Override
     protected Map<RegistryObject<WeaponTrait>, String> getTraitDescriptions() {
         return Map.of(
-                DOUBLE_DROPS, "Foes drop 2x as many items",
+                DOUBLE_DROPS, "Mobs drop 2x as many items",
                 PROSPECT, "4% chance of dropping an Ambrosium Shard while attacking",
-                ADAPTIVE, "Gains buffs the more it is used",
+                ADAPTIVE, "Gains strength the more it is used",
                 ETHEREAL, "Starts very powerful. Wears down with use",
-                UPDRAFT, "Flings foes into the air"
+                UPDRAFT, "Flings foes into the air",
+                REACTIVE, "Increased strength based on recently dealt damage"
         );
     }
 
