@@ -176,6 +176,8 @@
   "tooltip.spartanaether.trait.double_drops.desc": "Mobs drop 2x as many items",
   "tooltip.spartanaether.trait.ethereal": "Ethereal",
   "tooltip.spartanaether.trait.ethereal.desc": "Starts very powerful. Wears down with use",
+  "tooltip.spartanaether.trait.floating": "Floating",
+  "tooltip.spartanaether.trait.floating.desc": "Will float when dropped in the Aether",
   "tooltip.spartanaether.trait.prospect": "Prospect",
   "tooltip.spartanaether.trait.prospect.desc": "4% chance of dropping an Ambrosium Shard while attacking",
   "tooltip.spartanaether.trait.reactive": "Reactive",

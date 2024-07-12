@@ -12,6 +12,6 @@ class AetherGearExpModule {
     static TagKey<Item> INGOTS_AETHERITE = ItemTags.create(new ResourceLocation("forge", "ingots/aetherite"));
 
     static SpartanMaterial aetherite() {
-        return SpartanAether.material(ModItemTier.AETHERITE, INGOTS_AETHERITE, WeaponTraits.FIREPROOF, SpartanAether.REACTIVE);
+        return SpartanAether.material(ModItemTier.AETHERITE, INGOTS_AETHERITE, WeaponTraits.FIREPROOF, SpartanAether.REACTIVE, SpartanAether.FLOATING);
     }
 }

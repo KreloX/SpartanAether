@@ -35,6 +35,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -44,13 +47,12 @@ import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.util.TriConsumer;
 import teamrazor.deepaether.init.DAItems;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Mod(SpartanAether.MODID)
+@Mod.EventBusSubscriber(modid = SpartanAether.MODID)
 public class SpartanAether extends SpartanAddon {
     public static final String MODID = "spartanaether";
 
@@ -140,11 +142,11 @@ public class SpartanAether extends SpartanAddon {
         public float modifyDamageDealt(WeaponMaterial material, float baseDamage, DamageSource source, LivingEntity attacker, LivingEntity victim) {
             if (!EquipmentUtil.isFullStrength(attacker)) return baseDamage;
 
-            float boostedDamage = baseDamage + AetheriteHandler.getLastDamageDone(attacker) / 10.0F;
-            AetheriteHandler.addDamageDoneToList(attacker, attacker.tickCount, Math.min(boostedDamage, victim.getHealth()));
-            return boostedDamage;
+            return baseDamage + AetheriteHandler.getLastDamageDone(attacker) / 10.0F;
         }
     }.setUniversal(false));
+    public static final RegistryObject<WeaponTrait> FLOATING = registerTrait(TRAITS, new WeaponTrait("floating", MODID, WeaponTrait.TraitQuality.NEUTRAL)
+            .setUniversal(false));
 
     // Materials
     public static final ArrayList<SpartanMaterial> MATERIALS = new ArrayList<>();
@@ -173,10 +175,30 @@ public class SpartanAether extends SpartanAddon {
 
     @SafeVarargs
     static SpartanMaterial material(Enum<?> tier, TagKey<Item> repairTag, RegistryObject<WeaponTrait>... traits) {
-        SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, traits)
+        SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, new LinkedHashSet<>(Arrays.asList(traits)), Map.of())
                 .setPlanks(AetherTags.Items.SKYROOT_STICK_CRAFTING).setStick(AetherTags.Items.SKYROOT_STICKS).setHandle(SKYROOT_HANDLE).setPole(SKYROOT_POLE);
         MATERIALS.add(material);
         return material;
+    }
+
+    @SubscribeEvent(receiveCanceled = true, priority = EventPriority.LOWEST)
+    public static void onLivingDamage(LivingDamageEvent event) {
+        if (!(event.getSource().getEntity() instanceof LivingEntity attacker)) return;
+
+        var stack = attacker.getMainHandItem();
+
+        if (!stack.isEmpty() && stack.getItem() instanceof WeaponItem weapon) {
+            var material = weapon.getMaterial();
+            var traits = material.getBonusTraits();
+
+            if (traits == null) return;
+
+            if (traits.contains(REACTIVE.get())
+                    && ((IBetterWeaponTrait) REACTIVE.get()).isEnabled(material, stack)
+                    && EquipmentUtil.isFullStrength(attacker)) {
+                AetheriteHandler.addDamageDoneToList(attacker, attacker.tickCount, Math.min(event.getAmount(), event.getEntity().getHealth()));
+            }
+        }
     }
 
     @Override
@@ -276,7 +298,8 @@ public class SpartanAether extends SpartanAddon {
                 ADAPTIVE, "Gains strength the more it is used",
                 ETHEREAL, "Starts very powerful. Wears down with use",
                 UPDRAFT, "Flings foes into the air",
-                REACTIVE, "Increased strength based on recently dealt damage"
+                REACTIVE, "Increased strength based on recently dealt damage",
+                FLOATING, "Will float when dropped in the Aether"
         );
     }
 
