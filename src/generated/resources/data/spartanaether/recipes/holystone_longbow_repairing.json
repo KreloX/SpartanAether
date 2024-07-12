@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:holystone_longbow"
+  },
+  "repairTime": 500
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "deep_aether:stratus_ingot"
+  },
+  "base": {
+    "item": "spartanaether:stratus_warhammer"
+  },
+  "result": {
+    "item": "spartanaether:stratus_warhammer"
+  },
+  "template": {
+    "item": "deep_aether:stratus_smithing_template"
+  }
+}

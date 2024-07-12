@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:skyjade_heavy_crossbow"
+  },
+  "repairTime": 750
+}

@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:gravitite_greatsword"
+  },
+  "repairTime": 1500
+}

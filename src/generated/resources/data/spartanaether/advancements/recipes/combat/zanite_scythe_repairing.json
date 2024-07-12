@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:zanite_scythe_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_zanite_scythe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:zanite_scythe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_zanite_scythe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:zanite_scythe_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

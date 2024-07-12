@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:skyjade_dagger"
+  },
+  "repairTime": 750
+}

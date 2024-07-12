@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:skyroot_battleaxe"
+  },
+  "repairTime": 250
+}

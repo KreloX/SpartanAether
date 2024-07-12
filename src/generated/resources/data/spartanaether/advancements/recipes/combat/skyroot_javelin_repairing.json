@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_skyroot_javelin": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:skyroot_javelin"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:skyroot_javelin_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_skyroot_javelin",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:skyroot_javelin_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

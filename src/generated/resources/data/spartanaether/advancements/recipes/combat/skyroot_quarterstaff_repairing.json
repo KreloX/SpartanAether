@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_skyroot_quarterstaff": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:skyroot_quarterstaff"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:skyroot_quarterstaff_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_skyroot_quarterstaff",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:skyroot_quarterstaff_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

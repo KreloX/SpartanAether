@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:stratus_longbow"
+  },
+  "repairTime": 1500
+}

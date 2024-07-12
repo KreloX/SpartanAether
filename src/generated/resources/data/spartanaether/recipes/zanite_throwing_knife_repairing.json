@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:zanite_throwing_knife"
+  },
+  "repairTime": 750
+}

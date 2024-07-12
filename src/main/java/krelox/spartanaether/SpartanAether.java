@@ -5,15 +5,14 @@ import com.aetherteam.aether.item.AetherItems;
 import com.aetherteam.aether.item.EquipmentUtil;
 import com.aetherteam.aether.item.combat.AetherItemTiers;
 import com.aetherteam.aether.item.combat.abilities.weapon.ZaniteWeapon;
+import com.aetherteam.aether.recipe.AetherRecipeSerializers;
+import com.aetherteam.aether.recipe.builder.AltarRepairBuilder;
 import com.google.common.collect.ImmutableMultimap;
 import com.oblivioussp.spartanweaponry.api.WeaponMaterial;
 import com.oblivioussp.spartanweaponry.api.data.model.ModelGenerator;
 import com.oblivioussp.spartanweaponry.api.trait.WeaponTrait;
 import krelox.spartantoolkit.*;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
@@ -39,6 +38,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.util.TriConsumer;
+import teamrazor.deepaether.init.DAItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,21 +182,19 @@ public class SpartanAether extends SpartanAddon {
     @Override
     @SuppressWarnings("DataFlowIssue")
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        super.buildCraftingRecipes(consumer);
-
-        TriConsumer<ShapelessRecipeBuilder, Integer, TagKey<Item>> witherboneRecipe = (builder, witherboneCount, ingredient) -> builder
-                .requires(Ingredient.of(AetherTags.Items.SKYROOT_STICKS), witherboneCount)
+        TriConsumer<ShapelessRecipeBuilder, Integer, TagKey<Item>> skyrootStickRecipe = (builder, skyrootStickCount, ingredient) -> builder
+                .requires(Ingredient.of(AetherTags.Items.SKYROOT_STICKS), skyrootStickCount)
                 .requires(ingredient)
                 .group(ForgeRegistries.ITEMS.getKey(builder.getResult()).toString())
                 .unlockedBy("has_skyroot_sticks", has(AetherTags.Items.SKYROOT_STICKS))
                 .save(consumer, ForgeRegistries.ITEMS.getKey(builder.getResult()).withSuffix("_from_" + ingredient.location().getPath()));
 
-        witherboneRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_HANDLE.get()), 1, Tags.Items.STRING);
-        witherboneRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_HANDLE.get(), 4), 4, ItemTags.WOOL);
-        witherboneRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_HANDLE.get(), 4), 4, Tags.Items.LEATHER);
+        skyrootStickRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_HANDLE.get()), 1, Tags.Items.STRING);
+        skyrootStickRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_HANDLE.get(), 4), 4, ItemTags.WOOL);
+        skyrootStickRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_HANDLE.get(), 4), 4, Tags.Items.LEATHER);
 
-        witherboneRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_POLE.get(), 4), 8, ItemTags.WOOL);
-        witherboneRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_POLE.get(), 4), 8, Tags.Items.LEATHER);
+        skyrootStickRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_POLE.get(), 4), 8, ItemTags.WOOL);
+        skyrootStickRecipe.accept(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SKYROOT_POLE.get(), 4), 8, Tags.Items.LEATHER);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SKYROOT_POLE.get())
                 .define('|', AetherTags.Items.SKYROOT_STICKS)
@@ -207,6 +205,37 @@ public class SpartanAether extends SpartanAddon {
                 .group(SKYROOT_POLE.getId().toString())
                 .unlockedBy("has_skyroot_sticks", has(AetherTags.Items.SKYROOT_STICKS))
                 .save(consumer, SKYROOT_POLE.getId() + "_from_string");
+
+        Map<SpartanMaterial, Integer> repairTimes = Map.of(
+                SKYROOT, 250,
+                HOLYSTONE, 500,
+                ZANITE, 750,
+                SKYJADE, 750,
+                GRAVITITE, 1500,
+                STRATUS, 1500
+        );
+
+        WEAPONS.forEach((key, item) -> {
+            SpartanMaterial material = key.first();
+            WeaponType type = key.second();
+            Item weapon = item.get();
+
+            if (material.equals(STRATUS)) {
+                SmithingTransformRecipeBuilder
+                        .smithing(Ingredient.of(DAItems.STRATUS_SMITHING_TEMPLATE.get()), Ingredient.of(weapon),
+                                Ingredient.of(DAItems.STRATUS_INGOT.get()), RecipeCategory.COMBAT, weapon)
+                        .unlocks("has_stratus_ingot", has(DAItems.STRATUS_INGOT.get()))
+                        .save(consumer, item.getId() + "_smithing");
+            } else {
+                type.recipe.accept(WEAPONS, consumer, material);
+            }
+
+            AltarRepairBuilder
+                    .repair(Ingredient.of(new ItemStack(weapon, 1)), RecipeCategory.COMBAT,
+                            repairTimes.get(material), AetherRecipeSerializers.REPAIRING.get())
+                    .unlockedBy("has_" + item.getId().getPath(), has(weapon))
+                    .save(consumer, item.getId() + "_repairing");
+        });
     }
 
     @Override

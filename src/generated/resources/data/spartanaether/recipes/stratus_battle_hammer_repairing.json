@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:stratus_battle_hammer"
+  },
+  "repairTime": 1500
+}

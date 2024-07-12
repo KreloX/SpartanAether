@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:holystone_quarterstaff"
+  },
+  "repairTime": 500
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gravitite_throwing_knife": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:gravitite_throwing_knife"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:gravitite_throwing_knife_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gravitite_throwing_knife",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:gravitite_throwing_knife_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

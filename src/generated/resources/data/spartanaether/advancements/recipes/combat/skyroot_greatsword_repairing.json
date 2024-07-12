@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_skyroot_greatsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:skyroot_greatsword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:skyroot_greatsword_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_skyroot_greatsword",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:skyroot_greatsword_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

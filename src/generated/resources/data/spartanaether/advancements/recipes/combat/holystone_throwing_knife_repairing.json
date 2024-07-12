@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_holystone_throwing_knife": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanaether:holystone_throwing_knife"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartanaether:holystone_throwing_knife_repairing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_holystone_throwing_knife",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartanaether:holystone_throwing_knife_repairing"
+    ]
+  },
+  "sends_telemetry_event": true
+}

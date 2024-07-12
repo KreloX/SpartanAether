@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:gravitite_halberd"
+  },
+  "repairTime": 1500
+}

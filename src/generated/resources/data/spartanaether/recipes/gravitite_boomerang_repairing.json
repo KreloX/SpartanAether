@@ -1,0 +1,7 @@
+{
+  "type": "aether:repairing",
+  "ingredient": {
+    "item": "spartanaether:gravitite_boomerang"
+  },
+  "repairTime": 1500
+}
