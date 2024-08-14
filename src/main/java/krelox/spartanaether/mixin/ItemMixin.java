@@ -1,6 +1,7 @@
 package krelox.spartanaether.mixin;
 
 import com.aetherteam.aether.data.resources.registries.AetherDimensions;
+import com.oblivioussp.spartanweaponry.util.WeaponType;
 import krelox.spartanaether.SpartanAether;
 import krelox.spartantoolkit.IBetterWeaponTrait;
 import krelox.spartantoolkit.WeaponItem;
@@ -18,7 +19,7 @@ public abstract class ItemMixin implements IForgeItem {
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity itemEntity) {
         if (this instanceof WeaponItem weapon
-                && weapon.getMaterial().getBonusTraits().contains(SpartanAether.FLOATING.get())
+                && weapon.getMaterial().getBonusTraits(WeaponType.MELEE).contains(SpartanAether.FLOATING.get())
                 && ((IBetterWeaponTrait) SpartanAether.FLOATING.get()).isEnabled(weapon.getMaterial(), stack)) {
             spartanAether_floating(itemEntity);
         }

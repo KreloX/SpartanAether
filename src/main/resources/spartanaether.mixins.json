@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "spartanaether.refmap.json",
   "mixins": [
+    "WeaponHooksMixin",
     "DoubleDropsModifierMixin",
     "ItemMixin"
   ],

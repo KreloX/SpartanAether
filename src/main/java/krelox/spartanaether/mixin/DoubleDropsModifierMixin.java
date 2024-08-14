@@ -2,6 +2,7 @@ package krelox.spartanaether.mixin;
 
 import com.aetherteam.aether.item.AetherItems;
 import com.aetherteam.aether.loot.modifiers.DoubleDropsModifier;
+import com.oblivioussp.spartanweaponry.util.WeaponType;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import krelox.spartanaether.SpartanAether;
 import krelox.spartantoolkit.BetterWeaponTrait;
@@ -43,7 +44,7 @@ public class DoubleDropsModifierMixin {
     )
     private Item spartanaether_doApply(ItemStack stack, ObjectArrayList<ItemStack> lootStacks, LootContext context) {
         if (stack.getItem() instanceof WeaponItem weapon
-                && weapon.getMaterial().getBonusTraits().contains(SpartanAether.DOUBLE_DROPS.get())
+                && weapon.getMaterial().getBonusTraits(WeaponType.MELEE).contains(SpartanAether.DOUBLE_DROPS.get())
                 && ((BetterWeaponTrait) SpartanAether.DOUBLE_DROPS.get()).isEnabled(weapon.getMaterial(), stack)) {
             return AetherItems.SKYROOT_SWORD.get();
         }

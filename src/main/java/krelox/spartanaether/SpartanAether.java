@@ -47,7 +47,9 @@ import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.util.TriConsumer;
 import teamrazor.deepaether.init.DAItems;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -65,8 +67,8 @@ public class SpartanAether extends SpartanAddon {
     public static final RegistryObject<Item> SKYROOT_POLE = ITEMS.register("skyroot_pole", () -> new Item(new Item.Properties()));
 
     // Traits
-    public static final RegistryObject<WeaponTrait> DOUBLE_DROPS = registerTrait(TRAITS, new BetterWeaponTrait("double_drops", MODID, WeaponTrait.TraitQuality.POSITIVE)
-            .setUniversal(false));
+    public static final RegistryObject<WeaponTrait> DOUBLE_DROPS = registerTrait(TRAITS, new WeaponTrait("double_drops", MODID, WeaponTrait.TraitQuality.POSITIVE)
+            .setUniversal());
     public static final RegistryObject<WeaponTrait> PROSPECT = registerTrait(TRAITS, new BetterWeaponTrait("prospect", MODID, WeaponTrait.TraitQuality.POSITIVE) {
         @Override
         public float modifyDamageDealt(WeaponMaterial material, float baseDamage, DamageSource source, LivingEntity attacker, LivingEntity victim) {
@@ -77,7 +79,7 @@ public class SpartanAether extends SpartanAddon {
             }
             return super.modifyDamageDealt(material, baseDamage, source, attacker, victim);
         }
-    }.setUniversal(false));
+    }.setUniversal());
     public static final RegistryObject<WeaponTrait> ADAPTIVE = registerTrait(TRAITS, new BetterWeaponTrait("adaptive", MODID, WeaponTrait.TraitQuality.POSITIVE) {
         ItemStack stack = ItemStack.EMPTY;
 
@@ -144,9 +146,9 @@ public class SpartanAether extends SpartanAddon {
 
             return baseDamage + AetheriteHandler.getLastDamageDone(attacker) / 10.0F;
         }
-    }.setUniversal(false));
-    public static final RegistryObject<WeaponTrait> FLOATING = registerTrait(TRAITS, new WeaponTrait("floating", MODID, WeaponTrait.TraitQuality.NEUTRAL)
-            .setUniversal(false));
+    }.setUniversal());
+    public static final RegistryObject<WeaponTrait> FLOATING = registerTrait(TRAITS, new WeaponTrait("floating", MODID, WeaponTrait.TraitQuality.POSITIVE)
+            .setUniversal());
 
     // Materials
     public static final ArrayList<SpartanMaterial> MATERIALS = new ArrayList<>();
@@ -161,7 +163,7 @@ public class SpartanAether extends SpartanAddon {
 
     @SuppressWarnings("unused")
     public static final RegistryObject<CreativeModeTab> SPARTAN_AETHER_TAB = registerTab(TABS, MODID,
-            () -> WEAPONS.get(GRAVITITE, WeaponType.GREATSWORD).get(),
+            () -> WEAPONS.get(GRAVITITE, WeaponType.BATTLE_HAMMER).get(),
             (parameters, output) -> ITEMS.getEntries().forEach(item -> output.accept(item.get())));
 
     public SpartanAether() {
@@ -175,8 +177,11 @@ public class SpartanAether extends SpartanAddon {
 
     @SafeVarargs
     static SpartanMaterial material(Enum<?> tier, TagKey<Item> repairTag, RegistryObject<WeaponTrait>... traits) {
-        SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, new LinkedHashSet<>(Arrays.asList(traits)), Map.of())
-                .setPlanks(AetherTags.Items.SKYROOT_STICK_CRAFTING).setStick(AetherTags.Items.SKYROOT_STICKS).setHandle(SKYROOT_HANDLE).setPole(SKYROOT_POLE);
+        SpartanMaterial material = new SpartanMaterial(tier.name().toLowerCase(), MODID, (Tier) tier, repairTag, traits)
+                .setPlanks(AetherTags.Items.SKYROOT_STICK_CRAFTING)
+                .setStick(AetherTags.Items.SKYROOT_STICKS)
+                .setHandle(SKYROOT_HANDLE)
+                .setPole(SKYROOT_POLE);
         MATERIALS.add(material);
         return material;
     }
@@ -189,7 +194,7 @@ public class SpartanAether extends SpartanAddon {
 
         if (!stack.isEmpty() && stack.getItem() instanceof WeaponItem weapon) {
             var material = weapon.getMaterial();
-            var traits = material.getBonusTraits();
+            var traits = material.getBonusTraits(com.oblivioussp.spartanweaponry.util.WeaponType.MELEE);
 
             if (traits == null) return;
 
