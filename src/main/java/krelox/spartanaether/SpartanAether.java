@@ -67,7 +67,7 @@ public class SpartanAether extends SpartanAddon {
     public static final RegistryObject<Item> SKYROOT_POLE = ITEMS.register("skyroot_pole", () -> new Item(new Item.Properties()));
 
     // Traits
-    public static final RegistryObject<WeaponTrait> DOUBLE_DROPS = registerTrait(TRAITS, new WeaponTrait("double_drops", MODID, WeaponTrait.TraitQuality.POSITIVE)
+    public static final RegistryObject<WeaponTrait> DOUBLE_DROPS = registerTrait(TRAITS, new BetterWeaponTrait("double_drops", MODID, WeaponTrait.TraitQuality.POSITIVE)
             .setUniversal());
     public static final RegistryObject<WeaponTrait> PROSPECT = registerTrait(TRAITS, new BetterWeaponTrait("prospect", MODID, WeaponTrait.TraitQuality.POSITIVE) {
         @Override
